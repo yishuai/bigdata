@@ -10,4 +10,4 @@
 
 # 课件
 
-- [中文版](https://yishuai.github.io/bigdata/index.html)
+- [中文版](https://yishuai.github.io/bigdata/bigdata.html)
