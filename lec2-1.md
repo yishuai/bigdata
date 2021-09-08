@@ -385,6 +385,6 @@ The presence of many moving parts, often proprietary, also causes networks to be
 
 ---
 
-# 练习
+# 思考题
 
 - STP 算法

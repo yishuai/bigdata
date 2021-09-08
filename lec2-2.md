@@ -375,7 +375,7 @@ Ref: http://en.wikipedia.org/wiki/Clos_network
 
 ---
 
-# Clos 网络练习
+# Clos 思考题
 
 - 绘制一个三级 clos（4，5，3）拓扑及其折叠版本
 - n = 4, m = 5, r = 3
@@ -1160,8 +1160,7 @@ IP 地址管理
 
 # 练习
 
-- Clos 数学
-- 三级 Clos
+- 绘制Fat-tree拓扑
 - 调研云计算平台采用的网络拓扑
 
 ---

@@ -481,7 +481,7 @@ In this operation, the mrTriplets operator produces a collection containing the 
 
 ---
 
-# 练习
+# 探索练习
 
 - Spark 机器学习
 - Spark 图计算

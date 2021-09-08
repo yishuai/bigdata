@@ -74,7 +74,7 @@ class: middle, center
 
 .center[.width-100[![](./figures/cloud/1-storage.png)]]
 
----
+???
 
 # 内容
 
@@ -84,7 +84,7 @@ class: middle, center
 
 ---
 
-# 文件系统
+# 1、文件系统
 
 - 以 Amazon AWS 文件系统为例
   - 提供两种文件系统
@@ -107,7 +107,7 @@ a general-purpose file storage service. It provides a file system interface, fil
 
 ---
 
-# 对象存储
+# 2、对象存储
 
 - 存储非结构化二进制对象
   - 二进制大型对象通常被称为 blob
@@ -210,11 +210,15 @@ The object store model also has limitations. It provides little support for orga
 .center[.width-100[![](./figures/cloud/4-s3-upload.png)]]
 
 ---
+# 3、关系数据库
 
-# NoSQL 数据库
+- 适用于中等大小、高度结构化数据集
+- MySQL
 
-- 关系数据库
-  - 适用于中等大小、高度结构化数据集
+---
+
+# 4、NoSQL 数据库
+
 - NoSQL 数据库
   - 支持大规模数据量和用户量
   - 处理不容易以表格形式表示的非结构化数据
@@ -260,9 +264,7 @@ DynamoDB is a powerful NoSQL database based on an extensible key- value model: f
 
 DynamoDB distributes data via row: for any row, every element in that row is mapped to the same device. Thus, to determine the device on which a data value is located, you need only look up the PartitionKey, which is hashed to an index that determines the physical storage device in which the row resides. The RowKey specifies that items are stored in order sorted by the RowKey value.
 
----
-
-# 创建 DynamoDB 表
+创建 DynamoDB 表
 
 .center[.width-100[![](./figures/cloud/5-s3-db.png)]]
 
@@ -270,9 +272,7 @@ DynamoDB distributes data via row: for any row, every element in that row is map
 
 create the DynamoDB table in which we will store metadata and references to S3 objects.
 
----
-
-# 存储数据
+存储数据
 
 - 存入元数据和对 S3 对象的引用
   - csv.read 从 CSV 文件中读取元数据

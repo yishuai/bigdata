@@ -2,7 +2,7 @@ class: middle, center
 
 # 大数据的信息基础设施
 
-## 简介
+## 云计算
 
 陈一帅
 
@@ -12,39 +12,37 @@ class: middle, center
 
 ## .footnote[网络智能实验室]
 
----
+???
 
 class: middle, center
 
-# 本部分目的
+本部分目的
 
 从网络、存储和计算的基础设施演进
 
 说明驱动大数据发展的底层物理技术因素
 
----
-
-# 本部分内容
+本部分内容
 
 - 简介
 - 存储模型
 - 计算模型
 - 网络模型
+
+???
   - 传统网络结构
   - Clos 网络结构
   - 网络虚拟化
 
-???
 The development of the digital computer led computation to join experiment and theory as a third major paradigm of scientific discovery and engineering design. Supercomputers became essential lab instruments. In the 40 years that followed, the power of supercomputers has grown by a factor of over one billion. But now science is rapidly evolving into a fourth paradigm [153] of data-driven discovery.
 
 T. Hey, S. Tansley, and K. Tolle. The Fourth Paradigm: Data-Intensive Scientific Discovery. Kindle, 2009.
 
 ---
 
-# 本章内容
+# 内容
 
-- .red[背景]
-- 云的起源和定义
+- .red[云的起源和定义]
 - 云计算的服务模式
 - 云分布式计算的特性
 
@@ -57,9 +55,7 @@ T. Hey, S. Tansley, and K. Tolle. The Fourth Paradigm: Data-Intensive Scientific
 ???
 statistics, such as Bayes clustering, categorizing the data. Basically the math department
 
----
-
-# 大数据处理的各种方法
+大数据处理的各种方法
 
 - HTC
   - High-Throughput Computing
@@ -71,9 +67,7 @@ statistics, such as Bayes clustering, categorizing the data. Basically the math 
   - MPP: Massively Parallel Processors
 - 云
 
----
-
-# 大数据处理的各种方法
+大数据处理的各种方法
 
 .center[.width-90[![](./figures/ch1/2-hpc-htc.png)]]
 
@@ -98,20 +92,16 @@ statistics, such as Bayes clustering, categorizing the data. Basically the math 
 
 > Big Data refers to digital data volume, velocity and/or variety whose management requires scalability across coupled horizontal resources
 
----
-
-# 本章内容
+本章内容
 
 - 背景
 - .red[云的起源和定义]
 - 云计算的服务模式
 - 云分布式计算的特性
 
----
-
 class: middle, center
 
-# 云计算
+云计算
 
 .center[.width-90[![](./figures/art/1-cloud.jpg)]]
 
@@ -271,7 +261,7 @@ Why Big Data Now?
 
 ---
 
-# 本章内容
+# 内容
 
 - 背景
 - 云的起源和定义
@@ -308,7 +298,7 @@ Hardware
 
 ---
 
-# 云提供的服务 I
+# 云提供的服务 IaaS
 
 - 以 Amazon AWS 为例
 - 计算、存储、数据库、网络服务
@@ -317,7 +307,7 @@ Hardware
 
 ---
 
-# 云提供的服务 II
+# 云提供的服务 PaaS
 
 - 以 Amazon AWS 为例
 - 应用、移动、分析服务
@@ -326,18 +316,16 @@ Hardware
 
 ---
 
-# 云提供的服务 III
-
-- 各种 PaaS 服务
+# 云提供的服务 PaaS
 
 .center[.width-100[![](./figures/ch1/13-paas-emr.png)]]
 
 ---
 
-# 云提供的服务 IV
+# 云提供的服务 EMR
 
 - 大数据 EMR（E-MapReduce）PaaS 服务
-- 计算集群（Cluster）
+  - 计算集群（Cluster）
 - 节点类型
   - 管理节点：协调数据和任务的分布
   - 核心节点：运行任务，存储数据
@@ -347,7 +335,7 @@ Hardware
 
 ---
 
-# 云提供的服务 V
+# 云提供的服务 SaaS
 
 - Salesforce CRM（客户关系管理）SaaS 服务
   - 销售云：管理客户资料，跟踪商机，优化活动
@@ -367,7 +355,7 @@ Hardware
 
 ---
 
-# 本章内容
+# 内容
 
 - 背景
 - 云的起源和定义
@@ -493,7 +481,23 @@ Internet 搜索和 Web 服务通常需要大量的数据处理，尤其是为了
 
 # 练习
 
-- 调研国内外云平台，申请学生账号
+- 调研国内外云平台，申请免费学生/试用账号
+  - Azure: https://signup.azure.com
+  - AWS: https://aws.amazon.com/cn/free/
+  - Aliyun: https://free.aliyun.com/
+  - 华为云: https://activity.huaweicloud.com/free_test/index.html
+  - 腾讯云: https://cloud.tencent.com/act/free
+
 - 调研它们提供的各种服务，指出其服务模式
-- 调研它们提供的大数据服务，指出其服务模式
+  - 特别调研大数据服务，指出其服务模式
+
+---
+
+# 练习
+
+- 完成报告
+  - 【腾讯文档】Lab1、大数据平台调研
+  - https://docs.qq.com/doc/DT3BGSFZDQWRQWnRr
+
+???
 - 调研它们提供的视频服务，指出其服务模式

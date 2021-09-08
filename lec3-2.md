@@ -18,7 +18,6 @@ class: middle, center
 
 - .red[图计算模型]
 - Spark 简介
-- RDD
 - 算法实例
 - Spark SQL 和 DataFrame
 - 编程实例
@@ -66,19 +65,49 @@ Dataflow graph as defined by the program (above) and after the parallelism is un
 
 - 图计算模型
 - .red[Spark 简介]
-- RDD
 - 算法实例
 - Spark SQL 和 DataFrame
 - 编程实例
 
 ---
 
+# Hadoop 的局限
+
+- 线性数据流结构
+- 基于磁盘
+  - 程序从磁盘读取输入数据
+  - 对输入数据进行映射（Map）功能
+  - 简化（Reduce）映射结果
+  - 将结果存储在磁盘上
+- 速度慢
+
+---
+
 # Spark
 
-- 相比 Hadoop，更现代，更灵活
-- 支持更通用的图形执行模型，允许 MapReduce 迭代以及更有效的数据重用
+- 机器学习训练中需要大量迭代
+- Hadoop
+  - 在两个 MapReduce 作业之间重用数据，需要写入外部磁盘
+  - 导致大量开销
+- Spark
+  - 在本地工作进程中的动态随机存取存储器（DRAM）上进行缓存，大大减少开销
+
+???
+
+“traditional Hadoop using distributed local disks.
+
+Iterative data mining demands a user to run multiple ad hoc queries on the same subset of the data. Traditionally, the only way to reuse data between two MapReduce jobs is to write it to an external stable disk storage via a distributed file system. This incurs substantial overhead due to data replication, disk I/O, and serialization. In Spark, this overhead is significantly reduced by caching on the dynamic random access memory (DRAM) in local workers.
+
+---
+
+# Spark
+
+- 基于内存
+  - 比基于磁盘的 Hadoop 快得多
+- 图执行模型
+  - 允许 MapReduce 迭代以及更有效的数据重用
 - 交互式操作界面
-- 基于内存，比基于磁盘的 Hadoop 快得多
+  - 类似 Matlab
 - 可以在 YARN 和 Mesos 上运行，也可以在笔记本电脑和 Docker 容器中运行
 
 ???
@@ -93,11 +122,9 @@ Spark is also interactive and much faster than pure Hadoop.
 
 It runs on both YARN and Mesos, as well as on a laptop and in a Docker container.
 
----
+Spark
 
-# Spark
-
-- 一个开放源代码群集计算框架
+- 开放源代码群集计算框架
   - 最初在加利福尼亚大学伯克利分校的 AMPLab 开发
   - 与 Hadoop 一样，从批处理扩展而来
   - 提供内存计算范式
@@ -120,24 +147,26 @@ Spark is also part of Microsoft’s HDInsight toolkit and is supported on Amazon
 
 ---
 
-# Spark Core
-
-- Spark 核心提供分布式任务调度，调度和基本 I /O 功能
-- 对于集群管理，Spark 支持其自己的独立调度程序，Hadoop YARN 或 Apache Mesos
-- 对于分布式存储，Spark 可以与 HDFS，MapR 文件系统（MapR-FS），Cassandra，OpenStack Swift，Amazon S3 等接口
-
----
-
 # 伪分布式本地模式
 
-- Spark 支持伪分布式本地模式
-- 通常仅用于开发或测试目的
-- 不需要分布式存储，而可以使用本地文件系统
-- 换句话说，Spark 可以在一台机器上运行，每个 CPU 内核有一个执行程序
+- 在一台机器上运行
+  - 每个 CPU 内核一个执行程序
+- 不需要分布式存储，可使用本地文件系统
+- 方便开发、测试
 
 ???
 
 Spark also supports a pseudo-distributed local mode, usually used only for development or testing purposes. The distributed storage is not required and the local file system can be used instead. In other words, Spark can run on a single machine with one executor per CPU core.
+
+---
+
+# Spark Core
+
+- 提供分布式任务调度、基本 I/O 功能
+- 集群管理
+  - 自己的独立调度程序，Hadoop YARN 或 Apache Mesos
+- 存储接口
+  - 支持 HDFS，MapR 文件系统（MapR-FS），Cassandra，OpenStack Swift，Amazon S3 等接口
 
 ---
 
@@ -153,13 +182,14 @@ Spark also supports a pseudo-distributed local mode, usually used only for devel
 In summary, Spark SQL deals with structured data. Spark Streaming handles live streams of data, MLlib contains common machine learning functionality. GraphX is used for manipulating social network graphs.
 
 ---
-
 # 分布式执行模型
 
-- 为了使用 Spark，开发人员编写一个驱动程序，该程序连接到一组 Worker
-- 驱动程序定义一个或多个 RDD，并对它们调用操作
-- 驱动程序上的 Spark 代码还会跟踪 RDD 的 lineage
-- Worker 运行在集群服务器上，可将 RDD 分区存储在 RAM 中
+- 开发人员编写驱动程序
+  - 定义一个或多个 RDD，及其操作
+  - 连接到一组 Worker
+- Worker
+  - 运行在集群服务器上
+  - 可将 RDD 分区 存储在 RAM 中
 
 ???
 
@@ -192,23 +222,6 @@ We will study these features in subsequent subsections.”
 
 To use Spark, developers write a driver program that connects to a cluster of workers, as shown in Figure 8.12. The driver defines one or more RDDs and invokes actions on them. Spark code on the driver also tracks the RDDs’ lineage. The workers are cluster servers that can store RDD partitions in RAM across operations. Users provide arguments to RDD operations like map by passing closures (function literals).
 
----
-
-# 迭代数据挖掘
-
-- Spark 的开发专门针对 ML 应用程序训练过程中经常使用的迭代算法
-- 数据挖掘算法常常是迭代的，要求用户对数据的同一子集运行多个查询
-- 在两个 MapReduce 作业之间重用数据的唯一方法是通过分布式文件系统将其写入外部稳定磁盘存储中
-- 由于数据复制，磁盘 I/O 和序列化，这会导致大量开销
-- 在 Spark 中，通过在本地工作进程中的动态随机存取存储器（DRAM）上进行缓存，大大减少这种开销
-
-???
-
-“traditional Hadoop using distributed local disks.
-
-Iterative data mining demands a user to run multiple ad hoc queries on the same subset of the data. Traditionally, the only way to reuse data between two MapReduce jobs is to write it to an external stable disk storage via a distributed file system. This incurs substantial overhead due to data replication, disk I/O, and serialization. In Spark, this overhead is significantly reduced by caching on the dynamic random access memory (DRAM) in local workers.
-
----
 
 # 迭代图计算
 
@@ -226,36 +239,21 @@ In the case of using Pregel for iterative graph computations, one must keep inte
 
 ---
 
-# 内容
-
-- 图计算模型
-- Spark 简介
-- .red[RDD]
-- 算法实例
-- Spark SQL 和 DataFrame
-- 编程实例
-
----
-
 # Spark RDD
 
 - Resilient Distributed Dataset
   - 弹性分布式数据集（RDD）
   - Spark 的核心数据结构
-- 跨服务器分布，映射到磁盘或内存的数据集合
-- 提供了受限形式的分布式共享内存
+- 分布在计算机集群上的一个只读的数据集
+  - 利用集群中的持久性数据块得以缓存、复制和分发
+  - 可以使用 join 和各种 Map and Reduce 转换操作来创建新的 RDD
 
 ---
+# RDD 容错
 
-# RDD
-
-- 分布在计算机集群上的一个只读的数据集
-- 对它的操作是 Lazy 的
-- 利用集群中的持久性数据块得以缓存、复制和分发
-- 可以使用 join 和各种 Map and Reduce 转换操作来创建新的 RDD
-- 基于 RDD 实现了 Spark 中基于内存的 MapReduce 操作
-- 在某些数据丢失的情况下，通过跟踪每个 RDD 的 lineage 或重建 RDD 来实现容错
-- RDD 有它的 lineage，记录了它如何从其他稳定存储的数据集派生计算过来的。这是一个强大的属性。利用这个 lineage，程序即使失败了，也可以重建 RDD，但需要耗费 CPU。
+- 一个RDD的lineage记录了它如何从其他稳定存储的数据集派生计算过来的
+- 在某些数据丢失情况下，通过lineage可重建 RDD
+- 但需要重新计算，因此耗费 CPU
 
 ???
 
@@ -306,8 +304,6 @@ Use the replicated storage levels if you want fast fault recovery (e.g., if usin
 
 RDDs do not need to be materialized at all times. Instead, an RDD has its lineage about how it was derived from other data sets to compute its partitions from data in stable storage. This is a powerful property, because a program cannot reference an RDD that it cannot reconstruct after a failure.
 
----
-
 # Spark 并行运算
 
 - Spark 用 Scala 实现
@@ -328,13 +324,24 @@ Scala represents each closure as a Java object, and these objects can be seriali
 
 # 性能 （2014 年）
 
-- 在 AWS 帮助下，Databricks 团队参加了 Daytona Gray 测试
-  - 对 100 TB 数据（1 万亿条记录）进行分类
-  - 前世界纪录是 Yahoo!使用 2100 个节点的 Hadoop MapReduce 集群创造的 72 分钟
-  - 他们在 206 个 EC2 节点上使用 Spark，23 分钟
+- 对 100 TB 数据（1 万亿条记录）进行分类
+- 前世界纪录
+  - Yahoo!使用 2100 个节点的 Hadoop MapReduce 集群创造的 72 分钟
+- Spark
+  - 206 个 EC2 节点，23 分钟
   - 所有排序都在磁盘（HDFS）上进行，没有使用 Spark 的内存缓存
-- 不到 4 小时内对 190 台计算机上的 1 PB 数据（10 万亿条记录）排序
-  - 以前报告的基于 Hadoop MapReduce 的结果是在 3,800 台计算机上为 16 小时。
+
+---
+
+# 性能 （2014 年）
+
+- 1 PB 数据（10 万亿条记录）排序
+  - 190 台计算机
+  - 不到 4 小时
+- 比较
+  - 基于 Hadoop MapReduce
+  - 3,800 台计算机
+  - 16 小时
 
 ???
 
@@ -344,14 +351,16 @@ All the sorting took place on disk (HDFS), without using Spark’s in-memory cac
 
 ---
 
-# 操作
+# RDD 操作
 
 - 两种类型的操作
 - Transformations 变换
   - 将 RDD 映射到新 RDD
+  - Lazy 操作，只记录要执行的操作，并不真正执行
 - Action 动作
   - 返回值给主程序
   - 通常是 read-eval-print 循环，例如 Jupyter
+  - 启动真正的计算，以将值返回到程序或将数据写入外部存储
 
 ???
 
@@ -363,16 +372,64 @@ actions that return values to the main program: usually the read-eval-print-loop
 
 ---
 
-# Transformations 和 Action
+# Transformation
 
-- Transformations（变换）是定义新 RDD 的一种 Lazy 操作
-  - 所谓 Lazy，就是它只是记录要执行的操作，并不真正执行
-- Action（动作）会启动真正的计算，以将值返回到程序或将数据写入外部存储
-- Action 包括
-  - count 计数（返回数据集中元素的数量）
-  - collect 收集（返回元素本身）
-  - save 保存（将数据集输出到存储系统）
-- 程序员首先通过对稳定存储中的数据进行 Transformations 来定义一个或多个 RDD。然后执行 Action，将值返回给应用程序或将数据导出到存储系统
+- map
+  - 一一映射
+- reduce
+  - 合并 value
+  - 多个 到 1个
+- reducebykey
+  - 按 Key 合并 Value
+
+???
+
+- Scala
+  - https://sparkbyexamples.com/spark/spark-map-transformation/
+  - https://sparkbyexamples.com/apache-spark-rdd/spark-rdd-reduce-function-example/
+  -
+
+---
+# Map：一一映射
+
+- 示例（scala）
+  - https://sparkbyexamples.com/pyspark/pyspark-map-transformation/
+
+```scala
+rdd2=rdd.map(lambda x: (x,1))
+```
+
+---
+# Reduce：合并
+
+- 示例（scala）
+  - https://sparkbyexamples.com/apache-spark-rdd/spark-rdd-reduce-function-example/
+
+```scala
+listRdd.reduce(_ + _)
+```
+
+---
+# ReducebyKey：按“键”合“值”
+
+- 示例（scala）
+  - https://sparkbyexamples.com/apache-spark-rdd/spark-reducebykey-usage-with-examples/
+
+```scala
+val rdd2=rdd.reduceByKey(_ + _)
+```
+
+---
+
+# Action
+
+- count
+  - 计数（返回数据集中元素的数量）
+- collect
+  - 收集（返回元素本身）
+  - 示例（Python）：https://sparkbyexamples.com/pyspark/pyspark-collect/
+- save
+  - 保存（将数据集输出到存储系统）
 
 ???
 
@@ -385,6 +442,20 @@ Spark 通过类似于 Azure 和 FlumeJava 中使用的 DryadLINQ 的语言集成
 Spark exposes RDDs through a language-integrated API similar to DryadLINQ used in Azure and FlumeJava. In these cases, each data set is represented as an object. Transformations are invoked on these objects. Programmers start by defining one or more RDDs through transformations on data in stable storage. They can then use these RDDs in action operations that return a value to the application or export data to a storage system.
 
 Examples of actions include count (which returns the number of elements in the data set), collect (which returns the elements themselves), and save (which outputs the data set to a storage system).
+
+---
+
+# 练习
+
+- Spark By Examples
+  - https://sparkbyexamples.com/
+  - https://github.com/spark-examples
+- Spark RDD Tutorial
+  - https://sparkbyexamples.com/spark-rdd-tutorial/
+- Spark with Python (PySpark) Tutorial For Beginners
+  - https://sparkbyexamples.com/pyspark-tutorial/
+- PySpark RDD Tutorial | Learn with Examples
+  - https://sparkbyexamples.com/pyspark-rdd/
 
 ---
 
@@ -411,14 +482,6 @@ Spark computes RDDs lazily the first time they are[…]”
 
 “In a job with many iterations, it may be necessary to reliably replicate some of the versions of ranks to reduce fault recovery times. The user can call persist with a reliable flag to do this.
 
----
-
-# 基于 RDD Partition 的并行
-
-- 并行性通过在每个分区上并行计算获得
-  - 每个 Spark 操作都在 RDD 所在的 Worker 运行
-  - 每个 Worker 使用多个线程
-  - 对于 Reduce 操作，首先在各分区上完成，然后根据需要跨分区进行
 - 实际上，Python 程序会编译一个图，然后由 Spark 引擎执行该图
   - Spark Python 库利用 Python lambda 运算符创建匿名函数的能力
   - 首先生成代码，然后由 Spark 工作调度器将它们传送给 Worker，在每个 RDD 分区上执行
@@ -437,16 +500,19 @@ For actions, such as a reduce, most of the work is done on each partition and th
 
 The Spark Python library exploits Python’s ability to create anonymous functions using the lambda operator. Code is generated for these functions, and they can then be shipped by Spark’s work scheduler to the workers for execution on each RDD partition.
 
----
-
-# Partition 优化
-
-- RDD 中的元素可以基于每个记录的键在计算机之间进行分区
+中的元素可以基于每个记录的键在计算机之间进行分区
 - 分区顺序由 partitioner（分区程序）类确定
 - groupByKey，reduceByKey 和 sort 将获得一个分区后的 RDD
-- 如果两个数据集将要通过 join 连接到一起，那么可以将它们通过相同的 partition 类进行分区，这对后面的 join 很有帮助
-  - 这样的话，联接操作不需要通信
-  - 因为要 join 的每行的两个数据都在一个机器上
+
+---
+
+# 基于 RDD Partition 的并行
+
+- 在每个分区上进行并行计算
+- Partition 优化
+  - 如果两个数据集将要通过 join 连接到一起，可将它们通过相同的类分区，对后面的 join 有帮助
+  - 要 join 的每行的两个数据都在一个分区上
+  - join操作在一个分区上可以完成
 - 可以编写一个自定义分区程序类来进行分区
 
 ```py
@@ -468,7 +534,6 @@ links = spark.textFile(…).map(…) .partitionBy(myPartFunc).persist()”
 
 - 图计算模型
 - Spark 简介
-- RDD
 - .red[算法实例]
 - Spark SQL 和 DataFrame
 - 编程实例
@@ -501,7 +566,7 @@ spark-euler
 # 例：K-means 聚类
 
 - k 类
-- 函数：寻找最近的类中心点
+- 函数1：寻找最近的类中心点
   - 输入：输入点 p；当前 k 个 类的中心点列表 kPoints
   - 输出：KPoints 中和 p 最近的点的 index
 
@@ -548,8 +613,7 @@ reduceByKey(lambda x,y:(x[0]+y[0],x[1]+y[1]))
   - collect 它，作为新的 kPoints
   - 注：仅示例，这不是最好的 k-means 算法实现，Spark 机器学习库有更好的实现
 
----
-
+???
 # 练习
 
 - 在 Docker 容器中运行 Spark
@@ -561,7 +625,6 @@ reduceByKey(lambda x,y:(x[0]+y[0],x[1]+y[1]))
 
 - 图计算模型
 - Spark 简介
-- RDD
 - 算法实例
 - .red[Spark SQL 和 DataFrame]
 - 编程实例
@@ -585,6 +648,7 @@ Python and Spark can also execute SQL commands
 # 例：Spark SQL 文件输入
 
 - 数据文件
+  - 例：建筑温度
 
 .center[.width-100[![](./figures/cloud/14-sql1.png)]]
 
@@ -667,9 +731,7 @@ countsByAge.write.format(“json”).save(“s3a://…”)
 
 ---
 
-# DataFrame 示例
-
-- 文本搜索
+# DataFrame 示例：文本搜索
 - 创建一个只有一个名为“line”的列的 DataFrame
 
 ```python
@@ -726,16 +788,23 @@ The following code is used for joining of several source files:
 
 ---
 
+# 练习
+
+- Spark DataFrame & Dataset Tutorial
+  - https://sparkbyexamples.com/spark-dataframe-tutorial/
+- Spark SQL tutorial
+  - https://sparkbyexamples.com
+---
+
 # 内容
 
 - 图计算模型
 - Spark 简介
-- RDD
 - 算法实例
 - Spark SQL 和 DataFrame
 - .red[编程实例]
 
----
+???
 
 # Amazon EMR
 
@@ -775,7 +844,18 @@ Spark, YARN, and an interactive web-based notebook tool called Zeppelin
 
 ---
 
-# Spark on EMR 示例
+# 例：网站用户访问计数
+
+- 需求
+  - 统计特定用户列表中的用户访问Wikipedia的总数
+- 流程
+  - 加载 Wikipedia 访问日志
+  - 把每一行，转换为数组：用户，访问次数
+  - 过滤出需要查找的用户的数据
+  - 汇总每一个用户的访问记录，计算总数
+
+---
+# 加载数据
 
 - 从 S3 加载一小部分 Wikipedia 访问日志（从 2008 年到 2010 年）
 
@@ -794,9 +874,9 @@ rawdata = rawdata.repartition(10)
 
 ---
 
-# Spark on EMR 示例
+# 文本拆分为数组
 
-- 通过分割空白字符将每行转换为一个数组。
+- 通过分割空白字符将每行转换为一个数组
 
 ```py
 def parseline(line):
@@ -807,11 +887,13 @@ data = rawdata.map(parseline)
 
 ---
 
-# Spark on EMR 示例
+# 过滤
 
-- 过滤，留下有 namelist 中名字的 row
+- 过滤函数：检查row[1]是否在 namelist 中
 
 .center[.width-70[![](./figures/cloud/15-filter.png)]]
+
+- 过滤数据
 
 ```py
 fd=data.filter(lambda p:filter_fun(p,namelist))
@@ -819,14 +901,13 @@ fd=data.filter(lambda p:filter_fun(p,namelist))
 
 ---
 
-# Spark on EMR 示例
+# 统计
 
-- 检查页面标题中人的名字是否在 names 列表里
-
+- 返回人名
 .center[.width-70[![](./figures/cloud/15-mapname.png)]]
-
-- Map：用（name，count）对替换每一行
-- Reduce by name: 加 count
+- 计数
+  - Map：用（name，count）对替换每一行
+  - Reduce by name: 加 count
 
 ```py
 rd=fd.map(lambda row:(
@@ -889,13 +970,170 @@ remapped.takeOrdered(20, key = lambda x: -x[1])
 
 - 图计算模型
 - Spark 简介
-- RDD
 - 算法实例
 - Spark SQL 和 DataFrame
 - 编程实例
 
 ---
 
-# 练习
+# 练习：安装
 
-- Spark 编程
+.smaller[
+- Windows安装
+  - https://sparkbyexamples.com/spark/apache-spark-installation-on-windows/
+  - https://bigdata-madesimple.com/guide-to-install-spark-and-use-pyspark-from-jupyter-in-windows/
+  - https://blog.csdn.net/SunChao3555/article/details/84202769
+- Linux
+  - https://sparkbyexamples.com/spark/spark-installation-on-linux-ubuntu/
+  - https://blog.csdn.net/weixin_42902669/article/details/103055046
+  - https://cloud.tencent.com/developer/article/1614367
+  - https://blog.csdn.net/hecongqing/article/details/102938435
+]
+
+???
+# 在线练习
+- 谷歌Colab Spark 编程环境入门
+  - https://colab.research.google.com/drive/1gc6u6hItUKY9uJt6GXHaneSYCMaGcxp1
+
+# 练习
+- 单词计数
+  - 在线版：Colab 1：Wordcount in Spark， https://colab.research.google.com/drive/1OYY1n6iSrpP7ET5H2PUchl6xEMnC1boD
+  - Jupyter Notebook：也提供
+
+---
+# 练习：编程（Python）
+
+- https://github.com/piotrszul/spark-tutorial
+
+---
+# 1、文本单词计数
+
+- 0.1_Welcome.ipynb
+- prince_by_machiavelli.txt 小王子
+- RDD，DF，Word count
+
+---
+# 2、RDD基础练习
+- 1.1_RDD-Basics.ipynb
+- 字符串RDD
+- saveAsTextFile，flatmap，filter number，map，reduce
+
+---
+# 3、DataFrame基础练习
+- 2.1_StructuredData-Introduction.ipynb
+- 示例数据 row
+- DataFrame, Schema
+- filter, sort, col, select, groupby, join
+- limit, toPandas
+- write.csv
+
+---
+# 4、输入输出练习
+
+- 2.2_StructuredData-Formats.ipynb*
+- read.csv: 气温，tweet
+- 写csv，parquet存储
+
+---
+# 参考材料
+
+- Spark 原理和实践
+  - https://yishuai.github.io/spark
+  - B站视频，PDF
+  - 去年的材料，更详细的介绍
+  - 华为实验环境可能不免费了，其它内容有效
+
+- 张璇，Python机器学习入门指南（Sklearn)
+  - https://yishuai.github.io/lab/zhangxuan-guide.docx
+
+- Jupyter Notebook 介绍
+  - https://www.bilibili.com/video/BV1WZ4y1g7Zt/
+
+
+???
+
+# 3、气温序列数据
+
+- 1.2_RDD_Data-Processing.ipynb*
+- csv文件读入（namedtuple）
+- 基本统计
+- 每年的数据量统计
+- 年平均气温序列
+
+# 4、练习
+- https://github.com/piotrszul/spark-tutorial
+  - 孙子兵法每一章代表字提取（TD-IDF）
+  - 1.3_RDD_Text-Processing.ipynb*
+  - title，heading提取
+
+
+https://github.com/piotrszul/spark-tutorial
+气温序列数据
+2.3_StructuredData-Analyzing.ipynb*
+dropna, avg, count, sort
+groupby, stddev, avg
+udf, select, where
+窗口：window, partitionby, rowsbetween
+SQL
+
+https://github.com/piotrszul/spark-tutorial
+垃圾邮件分类
+3.2_ML_Classification-Text.ipynb*
+mapPartitions
+saveAsSequenceFile：Hadoop Sequence Files
+union
+HashingTF, IDF, Tokenizer
+LogisticRegression
+BinaryClassificationEvaluator
+Pipeline
+BinaryClassificationEvaluator，AUC
+RandomForestClassifier
+
+https://github.com/piotrszul/spark-tutorial
+收入预测（超过5万）
+复杂特征（数字，类别）
+3.3_ML_Classification-Categorical.ipynb*
+dataframe
+StringIndexer：categorical values indexer
+VectorAssembler
+sampleBy, subtract
+RandomForestClassifier
+LogisticRegression
+MulticlassClassificationEvaluator
+
+https://github.com/piotrszul/spark-tutorial
+染色体聚类
+5.1_BigData_Genomics-Clustering.ipynb*
+rdd, dataframe,
+k-means
+5.2_BigData_Genomics_Visualise.ipynb*
+pandas
+join, groupby, mean
+scipy.spatial.distance pdist, linkage, hierarchy, cluster
+
+https://github.com/piotrszul/spark-tutorial
+酒质量预测
+3.1_ML-Introduction.ipynb*
+线性回归
+VectorAssembler
+RegressionEvaluator
+lit
+PipelineModel
+ParamGridBuilder
+CrossValidator
+RandomForestRegressor
+PCA
+
+
+???
+
+https://medium.com/@naomi.fridman/install-pyspark-to-run-on-jupyter-notebook-on-windows-4ec2009de21f
+
+  - Colab 2 Frequent Pattern Mining in Spark https://colab.research.google.com/drive/1Db3fj_3jlDXgdrFWH6fUe03QF6ZT5EL5
+  - Colab 3 K-Means & PCA https://colab.research.google.com/drive/1Tu7xeYM0qBB-RkqLSnYGrIyzb3q7bYo1
+  - Colab 4 Collaborative Filtering https://colab.research.google.com/drive/1UWeDiyXiwDDqe7ksN2kt-myHsuSLObv8
+  - Colab 5 PageRank https://colab.research.google.com/drive/1hsUcHynaFy4AaVFuoOjZl6EGf7GoDEAE
+  - Colab 6 node2vec https://colab.research.google.com/drive/1U76DvMQlPNhkwdCFkhcs4s2gTVsh5Cnd
+  - Colab 7 Decision Trees on Spark https://colab.research.google.com/drive/1g-EyfD4CwGwba-loIN4Hnn4rRXotFjVB
+  - Colab 8 Bloom Filters https://colab.research.google.com/drive/1NI01jwKnxSITvK-0RZYJr8THMOFgNBcj
+  - Colab 9 Studying COVID-19 https://colab.research.google.com/drive/173RadLSqWkfvJTVHFXVlfILfnF6shj4g

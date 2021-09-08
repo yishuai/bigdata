@@ -20,14 +20,13 @@ class: middle, center
 - 虚拟机
 - 容器
 - 微服务
-- 大规模微服务的管理
 - 微服务实例
 
----
+???
 
 class: middle, center
 
-# 虚拟化
+虚拟化
 
 云计算基于虚拟化
 
@@ -45,7 +44,7 @@ Application：容器，Docker
 
 ---
 
-# 背景知识
+# 虚拟化
 
 - 程序
   - 一些指令
@@ -54,6 +53,7 @@ Application：容器，Docker
   - 进行状态管理、程序上下文切换、I/O 访问控制
 - 程序不能进行状态管理、I/O 访问指令，因为会接入其它程序的状态
   - 要通过操作系统执行这些指令
+- 提供看起来真实，但实际上是在软件中处理的这些指令的过程，被称为虚拟化
 
 ???
 
@@ -67,11 +67,8 @@ Important instructions for performing context switches, in which the computer st
 
 The OS has the ability to allow user programs (encapsulated as processes) to run the unprivileged instructions. But as soon as the user program attempts to access an I/O operation or other privileged instruction, the OS traps the instruction, inspects the request, and, if the request proves to be acceptable, runs a program that executes a safe version of the operation.
 
----
+虚拟化
 
-# 虚拟化
-
-- 提供看起来真实，但实际上是在软件中处理的这些指令的过程，被称为虚拟化
 - 其他类型的虚拟化（例如虚拟内存）在操作系统的指导下由硬件直接处理
 - 1960 年代末和 1970 年代初，IBM 和其他公司在虚拟化方面做了很多工作，最终证明可以虚拟化整个计算机
   - R. J. Creasy. The origin of the VM/370 time-sharing system. IBM Journal of Research and Development, 25(5):483–490, 1981.
@@ -84,7 +81,7 @@ Other types of virtualization, such as virtual memory, are handled directly by t
 
 In the late 1960s and early 1970s, IBM and others created many variations on virtualization and eventually demonstrated that they could virtualize an entire computer [104].
 
----
+???
 
 # 内容
 
@@ -92,7 +89,6 @@ In the late 1960s and early 1970s, IBM and others created many variations on vir
 - .red[虚拟机]
 - 容器
 - 微服务
-- 大规模微服务的管理
 - 微服务实例
 
 ---
@@ -217,9 +213,10 @@ ISBN:0137142978
   - Spot instances：竞价，闲时用，区域有关
 - 弹性配置器
   - Ryan Chard 弹性配置器，成本降低多达 95％
-  - R. Chard, K. Chard, K. Bubendorfer, L. Lacinski, R. Madduri, and I. Foster. Cost-aware cloud provisioning. In IEEE 11th International Conference on e-Science, pages 136–144, 2015.
 
 ???
+    - R. Chard, K. Chard, K. Bubendorfer, L. Lacinski, R. Madduri, and I. Foster. Cost-aware cloud provisioning. In IEEE 11th International Conference on e-Science, pages 136–144, 2015.
+
 
 on-demand instances
 Amazon, for example, these range from less than a cent per hour for a nano instance to several dollars per hour for a big-storage or graphical processing unit (GPU) system. And that is just for on-demand instances, instances that you request when you need them and pay for by the hour.
@@ -267,29 +264,27 @@ Each VM requires an operating system (OS)
 - 虚拟机
 - .red[容器]
 - 微服务
-- 大规模微服务的管理
 - 微服务实例
 
----
+???
 
 class: middle, center
 
 # 容器
 
-具有虚拟机的所有良好特性，同时更轻量级
-
 ---
 
-# 介绍
+# 容器
 
-- 容器是另一种虚拟化方法
+- 另一种虚拟化方法
+- 具有虚拟机的所有良好特性，同时更轻量级
 - 在同一操作系统上运行许多应用
   - 这些应用共享操作系统及其开销
 - 但不会互相干扰
   - 未经明确许可就无法访问彼此的资源
-- 像公寓一样 ⇒ 容器
 
 ???
+- 像公寓一样 ⇒ 容器
 
 - Run many apps in the same virtual machine
 - These apps share the OS and its overhead
@@ -303,9 +298,13 @@ class: middle, center
 
 - 容器将应用程序及其所有库依赖关系和数据打包到一个易于管理的单元中
 - 每个容器有自己的网络，主机名，域名，进程，用户，文件系统，IPC，互不干扰
-- Docker 允许在封装所有应用程序依赖项的容器中供应应用程序
-  - 该应用程序可以看到一个完整的私有进程空间，文件系统和网络接口，与同一主机操作系统上其他容器中的应用程序隔离
+
+---
+# Docker
+-  允许在包括所有应用程序依赖项的容器中运行应用程序
+- 该应用程序可以看到一个完整的私有进程空间，文件系统和网络接口
   - 例如，容器中的“显示进程”（在 Linux 上为 ps）命令将仅显示容器中的进程
+- 与同一主机操作系统上其他容器中的应用程序隔离
 
 ---
 
@@ -382,11 +381,14 @@ Ref: M. K. Weldon "The Future X Network: A Bell Labs Perspective," CRC Press, 20
 
 ---
 
-# 原理
+# 容器的原理
 
-- Linux 内核功能可绑定和容纳进程的资源利用
+- Linux 内核功能，绑定和容纳进程的资源调用
   - 基于 namespace 实现名称空间隔离（isolation）
   - 基于控制组（cgroup）实现资源限制
+
+???
+
 - 关键功能
   - 联合文件系统，或高级多层统一文件系统（AuFS）
   - 写时复制的特殊技术，使系统可以在多个容器中重用许多数据对象
@@ -522,9 +524,7 @@ OS 级的虚拟化，用户 app 的隔离
 
 Docker 引擎访问 Linux 内核功能以实现不同应用程序容器的隔离虚拟化
 
----
-
-# Docker 的组成
+Docker 的组成
 
 - daemon
   - API 和其他功能
@@ -596,6 +596,7 @@ Importantly, containers are completely portable across different clouds. In gene
 # 创建脚本
 
 - 创建 Dockerfile，描述应用程序、依赖包、以及如何运行的
+- 例：NodeJS Web服务器
 
 ```docker
 FROM Alpine
@@ -789,7 +790,6 @@ Docker Security
 - 虚拟机
 - 容器
 - .red[微服务]
-- 大规模微服务的管理
 - 微服务实例
 
 ---
@@ -813,11 +813,12 @@ For example, you can run a web server in one container and a database server in 
 
 # 微服务
 
-- 大型云应用程序的主要设计范式
 - 消息 + 参与者
+  - 大型云应用程序的主要设计范式
   - 计算由许多进行消息通信的参与者执行
-  - 每个参与者都有自己的内部专用内存，并且在收到消息后开始行动
-  - 根据消息，它可以更改内部状态，也可以向其他参与者发送消息
+  - 每个参与者都有自己的内部状态
+  - 收到消息后开始行动
+  - 根据消息，更改内部状态，向其他参与者发送消息
   - 参与者可实现为功能单一的 Web 服务 （Unix 设计原则）
 - 如果服务无状态，就是微服务
   - 微服务通常被实现为容器实例
@@ -833,7 +834,7 @@ computing is performed by many actors that communicate via messages.
 # 微服务系统模型
 
 - 微服务构成群（Swarm）
-- 微服务利用云中的虚拟网络进行异步通信
+- 微服务通过网络进行异步通信
 
 .center[.width-100[![](./figures/cloud/10-microservice.png)]]
 
@@ -854,6 +855,8 @@ individual processes may be stateless, such as a simple web service, or stateful
   - 在维护和升级的同时，还必须保持每天 24 小时在线
 - 微服务集群，可伸缩
 
+.center[.width-100[![](./figures/cloud/10-microservice.png)]]
+
 ???
 
 design and build a large, heterogeneous application that is secure, maintainable, fault tolerant, and scalable.
@@ -867,6 +870,45 @@ The app must remain up twenty-four hours a day while being maintained and upgrad
 This task is closely related to a software engineering methodology called DevOps, which integrates product delivery, quality testing, feature development, and maintenance releases in order to improve reliability and security and provide faster development and deployment cycles.
 
 From the programmer’s perspective this is a “you built it, so now you run it” philosophy. Updates to parts of this system occur while the system is running, so the developers are tightly integrated with the IT professionals who manage the system.
+
+---
+
+# 微服务
+
+- 每天 Billion 级请求，使系统可扩展性成为核心要求
+- Unix 和 Linux 的设计哲学
+  - 一个程序只作一个事情，做得很好
+  - 和其它的程序合作
+- 服务器集成式的软件应用被分解，变成微服务
+  - 基于容器的微服务模型
+  - 更好管理、迁移、扩展、资源调度
+- 大数据是其中的核心模块
+
+???
+网络也进化了
+云，容器，导致网络增长
+
+10G 标配，100G 支持
+
+“The evolution of application architecture”
+
+数据科学
+
+- 分析，编程，算法
+- 数学，统计，模型
+- 领域知识
+
+---
+
+# Scale
+
+- 最初可以部署在单个 VM 实例上
+- 随着业务增长，它可能需要扩展以在高峰时间使用 100 甚至 10,000 台服务器
+- 然后在业务缓慢时进行缩减
+
+???
+
+an online media streaming site may initially be deployed on a single VM instance. As its business grows, it may need to scale to use 100s or even 10,000s of servers at peak times, and then scale back when business is slow.
 
 ---
 
@@ -912,11 +954,10 @@ The communication mechanisms used by microservice systems are varied: they inclu
 
 - 微服务理念已被广泛采用
   - Netflix，Google，Microsoft，Spotify 和 Amazon
-- 云中的应用被设计成可扩展的服务
-  - 如 Web 服务器或移动应用程序的后端
+- Web 服务器或移动应用程序的后端
   - 接受来自远程客户端的连接，并根据客户端请求执行一些计算并返回响应
-  - 处理来自远程传感器的事件，通知控制系统如何响应
-  - 如当地球传感器检测到以明显方式发生的地面震动时，会发出地震警告
+- 远程传感控制系统
+  - 当地球传感器检测到以明显方式发生的地面震动时，会发出地震警告
 - 大数据系统
 
 ???
@@ -927,9 +968,7 @@ The cloud is designed to host applications that are realized as scalable service
 
 processes events from remote sensors, with the goal of informing a control system on how to respond, as when geosensors detecting ground motion tremors occurring in a significant pattern sound an earthquake warning.
 
----
-
-# 内容
+内容
 
 - 虚拟化
 - 虚拟机
@@ -960,19 +999,26 @@ use a resource manager to launch instances, stop them, create new versions, and 
 # 管理工具
 
 - Mesos
-- Docker
-  - Kubernetes: Google 云容器调度程序
-  - Swarm: Docker 容器调度程序
+- Docker Swarm
+  - Docker 容器调度程序
+- Docker Kubernetes
+  - Google 云容器调度程序
   <!-- - Compose: Docker 容器组管理工具，允许容器通过消息相互通信 -->
 
 ---
 
-# Mesos
+# Mesosphere
 
-- Mesosphere
-  <!-- - 来自 Mesosphere.com -->
-  - 基于 Berkeley Mesos 系统的数据中心操作系统（DCOS），用于管理集群
-  - 具有 Web 界面的分布式操作系统，可以管理云中应用程序
+- 集群管理
+- 基于 Berkeley Mesos 系统
+- 数据中心、分布式操作系统（DCOS）
+- Web 界面
+- 可以管理云中应用程序
+
+---
+
+# Mesosphere
+
 - 组成部分
   - Apache Mesos 分布式系统内核
   - Marathon 初始化系统，监视程序和服务，自动修复故障
@@ -1157,7 +1203,6 @@ kubectl describe services jupyter
 - 虚拟机
 - 容器
 - 微服务
-- 大规模微服务的管理
 - .red[微服务实例]
 
 ---
@@ -1180,9 +1225,7 @@ One or more sets of EC2 instances, each a logical unit called a cluster. You alw
 
 • Amazon-hosted Docker image repositories. Storing your images here may make them faster to load when needed, but you can also use the public Docker Hub repository discussed in chapter 6.
 
----
-
-# 创建角色
+创建角色
 
 - 微服务采用基于角色的安全
 - 需要创建称为角色的特殊安全实体，该实体授权个人，应用程序或服务代表您访问各种云资源
@@ -1291,7 +1334,6 @@ Diagram of the full subject area classifier.
 - 容器
   - Docker
 - 微服务
-- 大规模微服务的管理
   - Mesos，Kubernete
 - 微服务实例
   - 文档分类
@@ -1300,5 +1342,12 @@ Diagram of the full subject area classifier.
 
 # 练习
 
-- Docker 练习
-- 微服务练习
+- 匈牙利布达佩斯理工大学，微服务练习
+- 起始代码和作业说明
+  - https://github.com/ricsinaruto/simple-soa-projects
+- docs目录
+  - 2 Rest API 练习
+  - 4 Microservices 练习
+- Java 编程
+- PostMan 测试
+  - https://www.getpostman.com/

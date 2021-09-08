@@ -16,15 +16,12 @@ class: middle, center
 
 # 内容
 
-- .red[大数据平台和应用开发的演进]
-- MapReduce 计算模型的兴起
-- 本部分内容介绍
 - Hadoop HDFS
 - YARN
 
----
+???
 
-# 数据科学
+数据科学
 
 - 数据科学
   - 通过发现、假设、分析，直接从数据中提取可操作的知识
@@ -46,9 +43,9 @@ Google has released a service called Cloud Datalab, based on Jupyter, for intera
 
 The Microsoft Cloud Business Intelligence (Cloud BI) tool supports interactive access to data queries and visualization.
 
----
+???
 
-# 大数据的起源
+大数据的起源
 
 - 今天我们所知道的公有云最初是作为内部数据中心创建的
   - 支持电子商务，电子邮件和 Web 搜索服务
@@ -60,9 +57,9 @@ The Microsoft Cloud Business Intelligence (Cloud BI) tool supports interactive a
 
 What we know today as public clouds were originally created as internal data centers to support services such as e-commerce, e-mail, and web search, each of which involved the acquisition of large data collections. To optimize these services, companies started performing massive amounts of analysis on those data. After these data centers morphed into public clouds, the methods developed for these analysis tasks were increasingly made available as services and open source software.
 
----
+???
 
-# 大数据应用开发的演进
+大数据应用开发的演进
 
 - 虚拟化
   - CPU 能力飙涨，服务器虚拟化，以利用 CPU
@@ -70,9 +67,9 @@ What we know today as public clouds were originally created as internal data cen
   - MapReduce 计算模型，使网络中的通信流量，从 C-S 变成 S-S
 - 微服务
 
----
+???
 
-# 大数据应用开发的环境
+大数据应用开发的环境
 
 .center[.width-60[![](./figures/native-cloud/1-app-archi.png)]]
 
@@ -80,9 +77,9 @@ What we know today as public clouds were originally created as internal data cen
 
 - 开放给
 
----
+???
 
-# 微服务
+微服务
 
 - 每天 Billion 级请求，使系统可扩展性成为核心要求
 - Unix 和 Linux 的设计哲学
@@ -107,9 +104,9 @@ What we know today as public clouds were originally created as internal data cen
 - 数学，统计，模型
 - 领域知识
 
----
+???
 
-# Scale
+Scale
 
 - 最初可以部署在单个 VM 实例上
 - 随着业务增长，它可能需要扩展以在高峰时间使用 100 甚至 10,000 台服务器
@@ -119,9 +116,9 @@ What we know today as public clouds were originally created as internal data cen
 
 an online media streaming site may initially be deployed on a single VM instance. As its business grows, it may need to scale to use 100s or even 10,000s of servers at peak times, and then scale back when business is slow.
 
----
+???
 
-# 内容
+内容
 
 - 大数据平台和应用开发的演进
 - .red[MapReduce 计算模型的兴起]
@@ -129,9 +126,9 @@ an online media streaming site may initially be deployed on a single VM instance
 - Hadoop HDFS
 - YARN
 
----
+???
 
-# HPC
+HPC
 
 - 超级计算机体系结构的设计重点是处理器互连网络的性能
 - 使用专门的硬件和通信协议来实现亚微秒范围内的消息延迟
@@ -143,9 +140,9 @@ HPC applications can scale to modest-sized clusters.
 
 Supercomputer architectures are designed with a heavy emphasis on the performance of the processor interconnection network. They use specialized hardware features and communication protocols to achieve message latencies in the sub-microsecond range.
 
----
+???
 
-# BSP
+BSP
 
 - bulk synchronous parallelism 批量同步并行
 - 最初作为分析并行算法的模型而提出
@@ -160,9 +157,9 @@ bulk synchronous parallelism (BSP) [139]. Originally proposed as a model for ana
 
 A. V. Gerbessiotis and L. G. Valiant. Direct bulk-synchronous parallel algorithms. Journal of Parallel and Distributed Computing, 22(2):251–267, 1994.
 
----
+???
 
-# MapReduce
+MapReduce
 
 - MapReduce 是 BSP 计算的特例
 - 如：将 f map 到数据上，然后通过求和来 reduce
@@ -180,9 +177,9 @@ concept dates from Lisp programming in the 1960s, it was popularized for big dat
 
 J. Dean and S. Ghemawat. MapReduce: Simplified data processing on large clusters. Communications of the ACM, 51(1):107–113, 2008.
 
----
+???
 
-# 内容
+内容
 
 - 大数据平台和应用开发的演进
 - MapReduce 计算模型的兴起
@@ -190,9 +187,9 @@ J. Dean and S. Ghemawat. MapReduce: Simplified data processing on large clusters
 - Hadoop
 - YARN
 
----
+???
 
-# 大数据技术基础原理
+大数据技术基础原理
 
 - Mapreduce
 - SQL 类查询（SQL on hadoop，Hive）
@@ -200,9 +197,7 @@ J. Dean and S. Ghemawat. MapReduce: Simplified data processing on large clusters
 - 图计算
 - Spark
 
----
-
-# 目标
+目标
 
 - 在上节介绍大数据的存储和计算资源调度的基础上，介绍大数据技术平台的编程模型和使用技巧
 - 进行 Mapreduce、SQL 类查询、Spark 的编程实践
@@ -216,9 +211,7 @@ J. Dean and S. Ghemawat. MapReduce: Simplified data processing on large clusters
 
 > —Donald Knuth
 
----
-
-# 内容
+内容
 
 - 大数据平台和应用开发的演进
 - MapReduce 计算模型的兴起
@@ -235,26 +228,19 @@ J. Dean and S. Ghemawat. MapReduce: Simplified data processing on large clusters
 
 ---
 
-# HDFS
+# 核心：HDFS
 
 - Hadoop Distributed File System
-- 是 Hadoop 的核心
-- 用 Java 编写，完全可移植并且基于标准的网络 TCP 套接字
-- 单个 NameNode
-  - 跟踪数据位置
-- DataNode 集群
-  - 保存分布式数据
-  - 单个文件分为 64 MB 的块，这些块分布在各个 DataNode 上，并且也被复制，以使系统更具容错能力
+  - Hadoop 的核心
+  - 用 Java 编写，完全可移植并且基于标准的网络 TCP 套接字
+- 不是 POSIX 文件系统
+  - 一次写入，多次读取，仅保持”最终一致“
 
 ---
 
-# HDFS
+# 核心：HDFS
 
-- 不是 POSIX 文件系统
-  - 一次写入
-  - 多次读取
-  - 仅保持”最终一致“
-- 在 Linux 和其他一些 Unix 系统上，HDFS 被直接 Mount 为一个用户空间文件系统（FUSE）的虚拟文件系统
+- 可以被直接 Mount 为用户空间文件系统（FUSE）
   - 从而可以用命令行，以类似于标准 Unix 文件系统的方式进行操作
 
 .center[.width-100[![](./figures/cloud/12-hd-cmd.png)]]
@@ -265,15 +251,23 @@ J. Dean and S. Ghemawat. MapReduce: Simplified data processing on large clusters
 ---
 
 # HDFS
+- NameNode，跟踪数据位置
+  - 管理名称空间，确定块到 DataNode 的映射
+- DataNode 集群，保存分布式数据
+  - 单个文件分为 64 MB 的块
+  - 这些块分布在各个 DataNode 上
+  - 被复制到多个节点上，实现容错
 
+---
+# HDFS
 - 1 个 NameNode 跟踪块和副本
 - 4 个 DataNodes，2 个文件，文件块分布式存储
 
 .center[.width-100[![](./figures/cloud/12-hdfs-archi.png)]]
 
----
+???
 
-# HDFS
+HDFS
 
 - HDFS 受 Google GFS 的启发，是一种分布式文件系统，用于组织文件并将其数据存储在分布式计算系统上
 - HDFS 具有主/从体系结构，其中包含一个 NameNode 作为主节点，以及多个 DataNode 作为工作者（从属）
@@ -287,12 +281,9 @@ Figure 8.9
 
 HDFS and MapReduce engine installed with, multiple nodes of a Hadoop server cluster.
 
----
+HDFS Name Node
 
-# HDFS Name Node
-
-- 块到 DataNode 的映射由 NameNode 确定
-- NameNode 管理名称空间
+- 管理名称空间，确定块到 DataNode 的映射
   - 名称空间是维护元数据的区域
   - 元数据是指文件系统存储的信息，这些信息是文件的整体管理所必需的
   - 例如，DataNode 中输入拆分/块的位置的所有信息
@@ -373,9 +364,6 @@ Heartbeat and Blockreport message: Heartbeats and Blockreports are periodic mess
 
 # 内容
 
-- 大数据平台和应用开发的演进
-- MapReduce 计算模型的兴起
-- 本部分内容介绍
 - Hadoop HDFS
 - .red[YARN]
 
@@ -427,6 +415,7 @@ Both systems are widely used.
 - YARN 是一种资源调度程序，它允许使用简单的编程模型跨计算机集群对大型数据集进行分布式处理
 - 它旨在从单个服务器扩展到数千个服务器，每个服务器都提供本地计算和存储
 - 它通过在应用层进行智能故障检测和管理来支持高可用性
+- 支持 MPI，Hadoop 和 Spark 等多种应用程序
 
 ???
 
@@ -436,10 +425,12 @@ YARN is a resource scheduler that allows for distributed processing of large dat
 
 # YARN 三级资源管理
 
-- 资源管理器（RM）监督较低级别的节点管理器（NM）和应用程序管理器（AM）来监视最高级别的全局资源
-- NM 管理 VM 和容器
-- AM 将应用程序容器的集合作为业务流程组进行处理
-- YARN 支持 MPI，Hadoop 和 Spark 等多种应用程序
+- 节点管理器（NM）
+  - 管理 VM 和容器
+- 应用程序管理器（AM）
+  - 将应用程序容器的集合作为业务流程组进行处理
+- 资源管理器（RM）
+  - 监督 NM 和 AM，监视最高级别的全局资源
 
 ???
 
@@ -455,14 +446,14 @@ The YARN architecture for Hadoop resource management using three levels of manag
 
 # YARN 调度机制
 
-- 默认使用先进先出（FIFO）调度
-- Fair Scheduler 由 Facebook 开发，目标是为小型作业提供快速响应时间，为生产作业提供服务质量（QoS）
-- 公平调度程序有三个基本概念
+- 默认：先进先出（FIFO）调度
+- Fair Scheduler
+  - Facebook 开发
   - 将作业分组到池中
   - 为每个池分配保证的最低份额
   - 过剩能力在工作之间分配
-- 默认情况下，未分类的作业进入默认池
-- 池必须指定 Map Slot，Reduce Slot 的最小数量，和正在运行的作业数量限制
+  - 未分类的作业进入默认池
+  - 池必须指定 Map Slot，Reduce Slot 的最小数量，和正在运行的作业数量限制
 
 ???
 
@@ -474,13 +465,14 @@ Fair Scheduler was developed by Facebook. The goal of the Fair Scheduler is to p
 
 ---
 
-# 调度机制
+# Capacity Scheduler
 
-- Capacity Scheduler 由 Yahoo!开发
-- Capacity Scheduler 支持与 Fair Scheduler 相似的若干功能
-- 队列被分配了总资源容量的一小部分
-- 空闲资源分配给容量被超出了的队列
-- 在队列中，具有高优先级的作业可以优先访问队列资源
+- Yahoo!开发
+- 与 Fair Scheduler 相似
+- 队列
+  - 队列被分配了总资源容量的一小部分
+  - 空闲资源分配给容量被超出了的队列
+  - 在队列中，具有高优先级的作业可以优先访问队列资源
 - 一旦作业在 Hadoop 中运行，就不会被 preemption（先发制人）
 
 ???
@@ -494,33 +486,9 @@ Capacity Scheduler was developed by Yahoo! The Capacity Scheduler supports sever
 - AWS，Azure 都集成了 YARN
   - Amazon 版的 YARN，就是 E-MR
   - Azure 版的 YARN，就是 HDInsight
-- 练习
-  - 国内的云计算系统中呢？请调研
-
----
-
-# Hadoop 的局限
-
-- 线性数据流结构
-- 基于磁盘
-  - 程序从磁盘读取输入数据
-  - 对输入数据进行映射（Map）功能
-  - 简化（Reduce）映射结果
-  - 将结果存储在磁盘上
-- 速度慢
-
----
-
-# 小结
-
-- 大数据平台和应用开发的演进
-- MapReduce 计算模型的兴起
-- 本部分内容介绍
-- Hadoop HDFS
-- YARN
 
 ---
 
 # 练习
 
-- 云计算平台 HDFS 练习
+- 调研Haddop、YARN在你们组选定的云平台的应用情况

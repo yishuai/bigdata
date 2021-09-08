@@ -662,7 +662,7 @@ Storm/Heron explicitly constructs graphs from nodes and edges, whereas the other
 
 ---
 
-# 练习
+# 探索
 
 - Spark Streaming
 - AWS Streaming
