@@ -788,7 +788,7 @@ The following code is used for joining of several source files:
 
 ---
 
-# 练习
+# 参考材料
 
 - Spark DataFrame & Dataset Tutorial
   - https://sparkbyexamples.com/spark-dataframe-tutorial/
@@ -975,8 +975,7 @@ remapped.takeOrdered(20, key = lambda x: -x[1])
 - 编程实例
 
 ---
-
-# 练习：安装
+# 练习1：Spark安装
 
 .smaller[
 - Windows安装
@@ -990,140 +989,23 @@ remapped.takeOrdered(20, key = lambda x: -x[1])
   - https://blog.csdn.net/hecongqing/article/details/102938435
 ]
 
-???
-# 在线练习
-- 谷歌Colab Spark 编程环境入门
+---
+# 练习1：Spark官网熟悉
+
+- 快速开始
+- http://spark.apache.org/docs/latest/quick-start.html
+- Scala，Java，Python
+
+---
+
+# 练习2：在线编程环境
+
+- 如果不安装的话，尝试在线编程环境
+  - 熟悉就可。可选
+- 斯坦福CS246 大数据课程
+  - Colab 0：Spark 编程环境入门
   - https://colab.research.google.com/drive/1gc6u6hItUKY9uJt6GXHaneSYCMaGcxp1
-
-# 练习
-- 单词计数
-  - 在线版：Colab 1：Wordcount in Spark， https://colab.research.google.com/drive/1OYY1n6iSrpP7ET5H2PUchl6xEMnC1boD
-  - Jupyter Notebook：也提供
-
----
-# 练习：编程（Python）
-
-- https://github.com/piotrszul/spark-tutorial
-
----
-# 1、文本单词计数
-
-- 0.1_Welcome.ipynb
-- prince_by_machiavelli.txt 小王子
-- RDD，DF，Word count
-
----
-# 2、RDD基础练习
-- 1.1_RDD-Basics.ipynb
-- 字符串RDD
-- saveAsTextFile，flatmap，filter number，map，reduce
-
----
-# 3、DataFrame基础练习
-- 2.1_StructuredData-Introduction.ipynb
-- 示例数据 row
-- DataFrame, Schema
-- filter, sort, col, select, groupby, join
-- limit, toPandas
-- write.csv
-
----
-# 4、输入输出练习
-
-- 2.2_StructuredData-Formats.ipynb*
-- read.csv: 气温，tweet
-- 写csv，parquet存储
-
----
-# 参考材料
-
-- Spark 原理和实践
-  - https://yishuai.github.io/spark
-  - B站视频，PDF
-  - 去年的材料，更详细的介绍
-  - 华为实验环境可能不免费了，其它内容有效
-
-- 张璇，Python机器学习入门指南（Sklearn)
-  - https://yishuai.github.io/lab/zhangxuan-guide.docx
-
-- Jupyter Notebook 介绍
-  - https://www.bilibili.com/video/BV1WZ4y1g7Zt/
-
-
-???
-
-# 3、气温序列数据
-
-- 1.2_RDD_Data-Processing.ipynb*
-- csv文件读入（namedtuple）
-- 基本统计
-- 每年的数据量统计
-- 年平均气温序列
-
-# 4、练习
-- https://github.com/piotrszul/spark-tutorial
-  - 孙子兵法每一章代表字提取（TD-IDF）
-  - 1.3_RDD_Text-Processing.ipynb*
-  - title，heading提取
-
-
-https://github.com/piotrszul/spark-tutorial
-气温序列数据
-2.3_StructuredData-Analyzing.ipynb*
-dropna, avg, count, sort
-groupby, stddev, avg
-udf, select, where
-窗口：window, partitionby, rowsbetween
-SQL
-
-https://github.com/piotrszul/spark-tutorial
-垃圾邮件分类
-3.2_ML_Classification-Text.ipynb*
-mapPartitions
-saveAsSequenceFile：Hadoop Sequence Files
-union
-HashingTF, IDF, Tokenizer
-LogisticRegression
-BinaryClassificationEvaluator
-Pipeline
-BinaryClassificationEvaluator，AUC
-RandomForestClassifier
-
-https://github.com/piotrszul/spark-tutorial
-收入预测（超过5万）
-复杂特征（数字，类别）
-3.3_ML_Classification-Categorical.ipynb*
-dataframe
-StringIndexer：categorical values indexer
-VectorAssembler
-sampleBy, subtract
-RandomForestClassifier
-LogisticRegression
-MulticlassClassificationEvaluator
-
-https://github.com/piotrszul/spark-tutorial
-染色体聚类
-5.1_BigData_Genomics-Clustering.ipynb*
-rdd, dataframe,
-k-means
-5.2_BigData_Genomics_Visualise.ipynb*
-pandas
-join, groupby, mean
-scipy.spatial.distance pdist, linkage, hierarchy, cluster
-
-https://github.com/piotrszul/spark-tutorial
-酒质量预测
-3.1_ML-Introduction.ipynb*
-线性回归
-VectorAssembler
-RegressionEvaluator
-lit
-PipelineModel
-ParamGridBuilder
-CrossValidator
-RandomForestRegressor
-PCA
-
+  - SQL
 
 ???
 
@@ -1137,3 +1019,54 @@ https://medium.com/@naomi.fridman/install-pyspark-to-run-on-jupyter-notebook-on-
   - Colab 7 Decision Trees on Spark https://colab.research.google.com/drive/1g-EyfD4CwGwba-loIN4Hnn4rRXotFjVB
   - Colab 8 Bloom Filters https://colab.research.google.com/drive/1NI01jwKnxSITvK-0RZYJr8THMOFgNBcj
   - Colab 9 Studying COVID-19 https://colab.research.google.com/drive/173RadLSqWkfvJTVHFXVlfILfnF6shj4g
+
+???
+
+- 单词计数
+  - 在线版：Colab 1：Wordcount in Spark， https://colab.research.google.com/drive/1OYY1n6iSrpP7ET5H2PUchl6xEMnC1boD
+  - Jupyter Notebook：也提供
+
+---
+# 练习3：Spark 编程入门
+
+- Python 编程
+- https://github.com/piotrszul/spark-tutorial
+
+---
+# 3.1 文本单词计数
+
+- 0.1_Welcome.ipynb
+- prince_by_machiavelli.txt 小王子
+- RDD，DF，Word count
+
+---
+# 3.2 RDD基础练习
+- 1.1_RDD-Basics.ipynb
+- 字符串RDD
+- saveAsTextFile，flatmap，filter number，map，reduce
+
+---
+# 3.3 气温序列数据
+
+- 1.2_RDD_Data-Processing.ipynb*
+- csv文件读入（namedtuple）
+- 基本统计
+- 每年的数据量统计
+- 年平均气温序列
+
+---
+# 3.4 文本关键字提取
+
+- 1.3_RDD_Text-Processing.ipynb*
+- 孙子兵法每一章代表字提取（TD-IDF）
+- title，heading提取
+
+---
+# 3.5 DataFrame基础练习
+- 2.1_StructuredData-Introduction.ipynb
+- 示例数据 row
+- DataFrame, Schema
+- filter, sort, col, select, groupby, join
+- limit, toPandas
+- write.csv
+

@@ -14,13 +14,6 @@ class: middle, center
 
 ---
 
-# 内容
-
-- .red[定义]
-- 原理
-- 系统
-
----
 
 # 流式计算
 
@@ -48,19 +41,13 @@ dates back to basic research on complex event processing in the 1990s at places 
 
 ---
 
-# 内容
-
-- 定义
-- .red[原理]
-- 系统
-
----
 
 # 节点预分析
 
 - 数据流的分析有时需要靠近源
-- 正在出现执行预分析的工具，其目的是确定应发送到云以进行更深入分析的数据子集
-- 如 Apache Edgent 边缘分析工具，能够在 Raspberry Pi 等小型系统中运行
+- 预分析，确定应发送到云以进行更深入分析的数据子集
+- Apache Edgent 边缘分析工具
+  - 能够在 Raspberry Pi 等小型系统中运行
 
 ???
 
@@ -70,15 +57,14 @@ S. Kamburugamuve and G. Fox. Survey of distributed stream processing, Feb 2016. 
 
 ---
 
-# 基本挑战
+# 挑战
 
-- 正确性和一致性
 - 无限流中的数据在时间上不受限制
-- 但如果要显示分析结果，则不能等到时间结束
-- 因此，需要在合理的时间窗口结束时显示结果
-- 如，可以在当天结束时，基于当天事件得到每日摘要
-- 但是，如果您想更频繁地（例如每秒）获得结果怎么办？
-- 挑战：因为处理分布式，如果时间间隔太短，可能无法收集整个系统的全局状态，某些事件可能会丢失或计数两次。在这种情况下，报告可能不一致。
+- 显示分析结果，不能等到时间结束
+- 需在合理时间窗口结束时显示结果
+  - 如：当天结束时，基于当天事件得到每日摘要
+- 如果想更频繁地（例如每秒）获得结果怎么办？
+- 因为处理分布式，如果时间间隔太短，可能无法收集整个系统的全局状态，某些事件可能会丢失或计数两次。在这种情况下，报告可能不一致
 
 ???
 
@@ -92,11 +78,12 @@ Data in an unbounded stream are unbounded in time. But if you want to present re
 
 - 固定时间窗口：将输入流分为逻辑段，每段对应于一个指定的处理时间间隔。间隔不重叠
 - 滑动窗口：允许窗口重叠。例如，窗口大小为 10 秒，每 5 秒启动一次
-- 以会话为单位的窗口：将流划分为与数据的某些键相关的活动的会话（Session）。例如，某位用户的一连串鼠标点击可以捆绑到一起，作为一个时间上临近的系列点击会话
-- 全局窗口：封装整个有界流
+- 逻辑序列
+  - 将流划分为与数据的某些键相关的活动的会话（Session）
+  - 如：某用户的一连串鼠标点击作为一个系列
+- 全局窗口：封装所有能获取的流
 
 ---
-
 # 触发
 
 - 与窗口相关联
@@ -118,15 +105,6 @@ Trigger
 Associated with windows there must be a mechanism to trigger an analysis of the content of the window and publish the summary.
 
 ---
-
-# 内容
-
-- 定义
-- 原理
-- .red[系统]
-
----
-
 # 系统
 
 - Spark Streaming
@@ -163,7 +141,9 @@ IBM Analytics Stream Computing. http://www.ibm.com/analytics/us/en/ technology/s
 
 # AWS Kinesis
 
-- 来自亚马逊的事件流软件堆栈 Kinesis，包括三个服务
+- 来自亚马逊
+- 事件流软件堆栈
+- 包括三个服务
   - Kinesis Streams：提供有序的、可重播的实时流数据
   - Kinesis Firehose：支持极高规模的事件处理，可以将数据直接加载到 S3 或其他 Amazon 服务中
   - Kinesis Analytics：提供了基于 SQL 的分析工具，实时分析 Kinesis Streams 或 Firehose 中的流数据
@@ -247,7 +227,7 @@ Thus, a client can replay an analysis of a queue at any time, and different clie
 
 ---
 
-# 发送温度传感器数据
+# 例：发送温度传感器数据
 
 - 创建一个 JSON 的温度记录（包括时间，温度）
 - 将其转换为二进制数组
@@ -259,7 +239,7 @@ create a string that encodes a JSON record and then convert the string to a bina
 
 ---
 
-# 发送温度传感器数据
+# 分片
 
 - 通过分区键标识分片
   - 因为只有一个分片，所以用字符串'a'
@@ -373,7 +353,7 @@ Consequently Firehose is not designed for real-time analysis but for near-real-t
 - 原理
   - 利用 Spark Core 的快速调度功能，按窗口获取流数据，将其转换为一种特殊的 RDD：Dstream
   - Dstream 进入流处理引擎，该引擎可以遵循 MapReduce 或任何 DAG 模型，完成计算
-- 优点
+- 优点：流批一体
   - 基于 RDD 的设计使为批处理分析编写的同一套应用程序代码可以在流分析中使用
 
 ???
@@ -393,7 +373,6 @@ takes windows of streamed data and blocks them into Spark RDDs for analysis.
 - Reduce
 - Join
 - Transform
-  - 通过对源 DStream 的每个 RDD 应用 RDD-to-RDD 函数来返回新的 DStream。这可用于在 DStream 上执行任意的 RDD 操作
 
 ---
 
@@ -644,14 +623,6 @@ Many of the same core concepts exist in Flink and Beam.
 - 共享一些相同的概念，以相似方式创建流水线（Pipeline）
 - Storm / Heron 构造图，其他使用函数风格的流水线构造
 
----
-
-# 小结
-
-- 定义
-- 原理
-- 系统
-
 ???
 
 five different systems: Spark Streaming with Kinesis, Azure Stream Analytics, Storm/Heron, Google Dataflow/Beam, and Flink.
@@ -661,8 +632,34 @@ All share some of the same concepts and create pipelines in similar ways.
 Storm/Heron explicitly constructs graphs from nodes and edges, whereas the others use a functional style of pipeline composition.
 
 ---
+# 练习1：Spark 编程入门
 
-# 探索
+- Python 编程
+- https://github.com/piotrszul/spark-tutorial
 
-- Spark Streaming
-- AWS Streaming
+---
+# 1 输入输出练习
+
+- 2.2_StructuredData-Formats.ipynb*
+- read.csv: 气温，tweet
+- 写csv，parquet存储
+
+---
+# 2 气温序列数据
+
+- 2.3_StructuredData-Analyzing.ipynb*
+- dropna, avg, count, sort
+- groupby, stddev, avg
+- udf, select, where
+- 窗口：window, partitionby, rowsbetween
+- SQL
+
+---
+# 练习2：Spark Streaming
+
+- 使用 Spark Streaming 和 Twitter 识别主题标签
+- 返回与“大流行”相关的热门主题标签
+  - https://github.com/ssupattra/pyspark-streaming-twitter
+- 编程指南
+  - http://spark.apache.org/docs/latest/streaming-programming-guide.html
+  - Java，Python

@@ -127,19 +127,12 @@ Pipelines inherit the fit(...) method from the contained estimator. Once the est
 
 # Spark MLib
 
-- 步骤 1
-  - 输入数据分为两个子集：训练数据与测试数据
-  - 在进入计算或学习引擎之前，两者都存储在数据存储器中
-- 步骤 2
-  - 数据预处理，例如过滤，挖掘，数据聚合，特征提取，模式识别以及某些转换操作
-- 步骤 3
-  - 使用云计算和存储资源的学习引擎
-  - 包括数据清理，模型训练以及在监督下向模型开发的转变。
-- 步骤 4
-  - 学习模型的构建，适应环境满足预测或分类等学习目标的环境问题
-- 步骤 5
-  - 通过制定决策或预测进行的训练和测试阶段
-  - 通过反馈进行培训，以提高模型性能。然后，输出预测结果（如果令人满意）
+- 步骤 1：输入数据
+  - 分为两个子集：训练数据与测试数据
+- 步骤 2：数据预处理
+  - 过滤，挖掘，数据聚合，特征提取，模式识别以及某些转换操作
+- 步骤 3：模型训练
+  - 通过反馈进行训练，提高模型性能，输出预测结果
 
 ???
 
@@ -473,15 +466,58 @@ In this operation, the mrTriplets operator produces a collection containing the 
 - Google called Cloud Datalab
 
 ---
+# 练习：Spark 机器学习编程
 
-# 小结
-
-- 机器学习
-- 图计算
+- 注：先不做。等讲完机器学习
+- Python 编程
+- https://github.com/piotrszul/spark-tutorial
 
 ---
+# 1 酒质量预测
+- 3.1_ML-Introduction.ipynb*
+  - 线性回归
+  - VectorAssembler
+  - RegressionEvaluator
+  - lit
+  - PipelineModel
+  - ParamGridBuilder
+  - CrossValidator
+  - RandomForestRegressor
+  - PCA
 
-# 探索练习
+---
+# 2 垃圾邮件分类
+- 3.2_ML_Classification-Text.ipynb*
+  - mapPartitions
+  - saveAsSequenceFile：Hadoop Sequence Files
+  - union
+  - HashingTF, IDF, Tokenizer
+  - LogisticRegression
+  - BinaryClassificationEvaluator
+  - Pipeline
+  - BinaryClassificationEvaluator，AUC
+  - RandomForestClassifier
 
-- Spark 机器学习
-- Spark 图计算
+---
+# 3 收入预测
+
+- 3.3_ML_Classification-Categorical.ipynb*
+  - 是否超过5万
+  - 复杂特征（数字，类别）
+  - dataframe
+  - StringIndexer：categorical values indexer
+  - VectorAssembler
+  - sampleBy, subtract
+  - RandomForestClassifier
+  - LogisticRegression
+  - MulticlassClassificationEvaluator
+
+---
+# 4 染色体聚类
+- 5.1_BigData_Genomics-Clustering.ipynb*
+  - rdd, dataframe,
+  - k-means
+- 5.2_BigData_Genomics_Visualise.ipynb*
+  - pandas
+  - join, groupby, mean
+  - scipy.spatial.distance pdist, linkage, hierarchy, cluster
