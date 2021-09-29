@@ -23,11 +23,16 @@
         <li><a href="https://docs.qq.com/doc/DT3BGSFZDQWRQWnRr">Lab 1 云计算平台调研</a></li>
         <li><a href="https://docs.qq.com/doc/DT3ZIVlhDTmhVcnpo">Lab 2 微服务系统开发入门</a></li>
         <li><a href="https://docs.qq.com/doc/DT2JxTGpQSGRVU2N2">Lab 3 Spark编程入门</a></li>
+        <li><a href="https://docs.qq.com/doc/DT2xxU0h6b0ZTVU1q">Lab 4 双十一电商销售实时分析</a></li>
+        <li><a href="https://docs.qq.com/doc/DT1hkcUZZR2RvVktG">Lab 5：父子身高相关吗？</a></li>
       </ol>
-      <li>本站链接: <a href="https://yishuai.github.io/bigdata/bigdata.html">https://yishuai.github.io/bigdata/bigdata.html</a></li>
-      <li>
-        本站材料Github下载: <a href="https://github.com/yishuai/bigdata">https://github.com/yishuai/bigdata</a>
-      </li>
+      <li>本站</li>
+      <ol>
+        <li>链接: <a href="https://yishuai.github.io/bigdata/bigdata.html">https://yishuai.github.io/bigdata/bigdata.html</a></li>
+        <li>
+          Github: <a href="https://github.com/yishuai/bigdata">https://github.com/yishuai/bigdata</a>
+        </li>
+      </ol>
     </ul>
 
     <h2>B 课程材料</h2>
@@ -94,7 +99,7 @@
       <li>
         流式计算：<a href="index.html?p=lec3-3.md">网页</a>，<a
           href="pdf/5-3-streaming.pdf"
-        >PDF</a>
+        >PDF</a>，<a href="https://docs.qq.com/doc/DT2xxU0h6b0ZTVU1q">Lab 4 双十一电商销售实时分析</a>
       </li>
       <!-- <li>
         机器学习和图计算：<a href="index.html?p=lec3-4.md">网页</a> <a href="pdf/lec4.pdf" ></a>
@@ -106,16 +111,235 @@
       </li> -->
     </ol>
 
-    <h3>三、大数据信息处理技术</h3>
+    <h3>三、数学基础</h3>
     <p>
-      本节介绍大数据技术平台的信息处理技术，包括文本处理，时间序列处理。
+      本节介绍大数据算法的数学基础
     </p>
     <ol>
-      <li>Rayid Ghani，芝加哥大学，Text Analytics 101，<a href="text/text_analytics_rayid.pdf">PDF</a>
-      </li>
+      <li>材料</li>
+      <ol>
+        <li>Mario Figueiredo，概率论和线性代数基础教程，PDF，<a href="http://lxmls.it.pt/2021/wp-content/uploads/2021/07/LxMLS_Lecture_0_handout.pdf">原链接</a>, <a href="text/0_math.pdf">本地链接</a></li>
+      </ol>
+      <li>重点</li>
+      <ol>
+        <li>Binomial分布，Multinomial分布</li>
+        <li>高斯分布</li>
+        <li>贝叶斯定理</li>
+        <li>指数族：重点的重点。第36页-第38页详细推导</li>
+        <li>特别是“指数家族”概率分布的Partition函数对\eta求导过程。这对理解后面的所有模型（直到CRF）都非常关键</li>
+        <li>向量空间、范数、内积</li>
+        <li>高斯-施瓦茨不等式，特别是第59页其精妙的证明</li>
+        <li>矩阵的Rank、SVD</li>
+        <li>Convex函数</li>
+      </ol>
     </ol>
 
+    <h3>四、编程基础</h3>
+    <p>
+      本节介绍大数据算法的编程基础，包括Python入门、梯度下降、线性回归
+    </p>
+    <ol>
+      <li>材料</li>
+      <ol>
+        <li>Andre Martins，文本机器学习简介：线性学习器，PDF，<a
+            href="http://lxmls.it.pt/2021/wp-content/uploads/2021/07/lxmls2021-andre-martins.pdf">原链接</a>, <a
+              href="text/0_math.pdf">本地链接</a></li>
+      </ol>
+      <li>重点</li>
+      <ol>
+        <li>第26-34页，线性回归模型</li>
+        <ol>
+          <li>扩展，支持非线性</li>
+          <li>误差函数概念：Squared Loss</li>
+          <li>概率理解：基于高斯噪声和最大似然估计，基于高斯先验的L2正则</li>
+        </ol>
+        <li>第92页-93页，梯度下降优化方法</li>
+      </ol>
+      <li>实验：Lab5：父子身高相关吗？<a href="https://docs.qq.com/doc/DT1hkcUZZR2RvVktG">腾讯文档</a></li>
+    </ol>
 
+    <h3>五、大数据文本分类基础模型</h3>
+    <p>
+      本节介绍大数据文本处理的特征工程和分类模型基本概念。
+    </p>
+    <p>材料</p>
+    <ol>
+      <li>Andre Martins，文本机器学习简介：线性学习器，，PDF，<a href="http://lxmls.it.pt/2021/wp-content/uploads/2021/07/lxmls2021-andre-martins.pdf">原链接</a>, <a
+        href="text/0_math.pdf">本地链接</a></li>
+    </ol>
+
+    <p>重点 1：文本特征、分数的基本概念</p>
+    <ol>
+      <li>第8-9页，示例</li>
+      <ol>
+        <li>文本分类中 P(类型|单词) 的统计及物理意义</li>
+        <li>这些“单词”，通常被称作“特征”</li>
+        <li>统计得到的 P(类型T|单词A) 表示了“单词A”对判断文档是否属于“类型T”的“绝对价值”，通常被称为“分数” - Score</li>
+      </ol>
+      <li>文本特征的表示</li>
+      <ol>
+        <li>特别简单，就是0/1</li>
+        <li>出现了特征，比如单词“Love”，就标“1”，否则标“0”</li>
+        <li>特征向量：比如一共有5个特征，可能表示为 [0,1,1,0,0]</li>
+        <li>即：第1，4，5特征没有出现，2，3特征出现了</li>
+      </ol>
+      <li>文本特征的设计</li>
+      <ol>
+        <li>在上面用“单词”作为判断“文本类型”的“特征”</li>
+        <li>除了单个单词，还可以有别的特征吗？</li>
+        <li>可以，如: </li>
+        <ol>
+          <li>单词 + 上下文：n-gram，如 Jack London</li>
+          <li>单词 + 单词属性：如 London （人名），这样就和 London（位置）区分开了</li>
+          <li>单词 + 上下文 + 属性：如通过 Jack (人名）London，Go （动作）London ，我们可以区分这两个 London </li>
+        </ol>
+        <li>CRF就是采用了 “单词 + 上下文 + 属性” 的特征</li>
+      </ol>
+      <li>分数</li>
+      <ol>
+        <li>在上面通过统计得到 P(类型|单词)，作为“单词A”对判断文档是否属于“类型T”的“分数”</li>
+        <li>除此之外，还可以有别的方法可以得到这个分数吗？</li>
+        <li>可以，机器学习模型，将此作为一个最优化的问题，通过各种算法，得到最优“分数”</li>
+      </ol>
+      <li>什么是最优？</li>
+        <ol>
+          <li>最大熵</li>
+          <li>最大似然估计</li>
+          <li>最大后验概率</li>
+          <li>Loss函数最小</li>
+        </ol>
+    </ol>
+
+    <p>重点 2：文本机器学习模型工作原理</p>
+    <ol>
+      <li>需求</li>
+      <ol>
+        <li>设计一个模型，能够综合一个文档的各个特征 \phi(x_i)，得到其属于某一“类型y_i”的概率 P(y_i|X) </li>
+        <li>然后各个类型的概率，选概率最大的，完成分类</li>
+      </ol>
+      <li>多元感知机模型</li>
+      <ol>
+        <li>最直观、简单、实用的一个模型，也是人工智能、深度学习模型的鼻祖</li>
+        <li>模型：第58页 </li>
+        <li>特点：简单线性模型</li>
+        <li>训练方法：第60页</li>
+        <li>原理：</li>
+        <ol>
+          <li>在线算法：来一个样本，就调一次“分数”</li>
+          <li>分数在这里用w表示，即特征的权重（weight）</li>
+          <li>如果样本类型应该是i，但被模型错误地分类为j，这意味着两个事情：
+          <li>对类型i </li>
+          <ol>
+            <li>这意味着：这个样本的特征，在计算 P(y_i|X) 没有得到足够重视</li>
+            <li>该样本的这些特征对应的 w 分数太低，需要增加</li>
+            <li>怎么做？</li>
+            <li>把文本的特征向量，加到 P(y_i|X) 模型的w上</li>
+            <li>达到的效果：如果一个特征出现了（它的x是1），它的分数w就会被加1</li>
+            <li>这样，这个样本的各个特征的权重在 P(y_i|X) 模型中是不是被提高了一些？</li>
+            <li>这是我们想要的</li>
+            <li>为什么只加1，不加100？</li>
+            <li>不能着急，慢慢来。看算法，会继续迭代，下次发现错误了，还会加1，慢慢的就加上来了</li>
+          </ol>
+          <li>对类型j</li>
+          <ol>
+            <li>与上面对i的w的调整正好相反</li>
+            <li>这意味着：这个样本的特征，在计算 P(y_j|X) 时，被错误地得到了太多的重视</li>
+            <li>该样本的这些特征对应的 w 分数太高，需要减少</li>
+            <li>怎么做？</li>
+            <li>把文本的特征向量，在 P(y_j|X) 模型的w上减去</li>
+            <li>达到的效果：如果一个特征出现了（它的x是1），它的分数w就会被减1</li>
+            <li>这样，这个样本的各个特征在 P(y_j|X) 模型中权重是不是被减少了一些？</li>
+            <li>这是我们想要的</li>
+          </ol>
+        </ol>
+        <li>这就是第60页，多元感知机的内在逻辑</li>
+        <li>理解这个对理解文本机器学习的特征工程和模型调整非常关键</li>
+        <li>后面的所有模型，都是基于这个思路来的</li>
+      </ol>
+    </ol>
+
+    <p>重点 3：Naive Bayes 模型</p>
+    <ol>
+      <li>两个特点：</li>
+      <ol>
+        <li>它比较的是 P(x,y)，不是上面提到的 P(Y|X) </li>
+        <li>它通过条件独立假设，减化 P(X|Y) 的计算</li>
+      </ol>
+      <li>例：第71页-78页</li>
+    </ol>
+
+    <p>重点4：逻辑回归</p>
+    <ol>
+      <li>特点</li>
+      <ol>
+        <li>第87页</li>
+        <li>它用一个“指数家族”的形式，模型 P(y|x)</li>
+        <li>请回顾数学基础部分“指数家族”概率分布的强大模型能力！</li>
+        <li>它还是一个线性模型</li>
+      </ol>
+      <li>优化模型：第90页</li>
+      <li>注意其中分两项：</li>
+      <ol>
+        <li>第一部分：Partition函数部分</li>
+        <ol>
+          <li>请回顾数学基础部分“指数家族”概率分布的Partition函数对\eta求导的公式</li>
+        </ol>
+        <li>第二部分：文本特征部分</li>
+      </ol>
+      <li>用梯度下降法求解</li>
+      <ol>
+        <li>第97页：核心的核心。一定要一步步跟下来</li>
+        <li>关键是，对最后结果的理解：</li>
+        <ol>
+          <li>最后得到的梯度的第一部分，指的是：将当前样本的特征向量，乘以：模型得到的各种y的概率，作为这些y的模型的w的梯度</li>
+          <li>最后得到的梯度的第二部分，指的是：将当前样本的特征向量，作为该样本的真实y的模型的w的梯度</li>
+        </ol>
+        <li>它的物理意义非常清楚</li>
+        <li>和前面感知机的w的调整算法一脉相乘。非常有趣</li>
+      </ol>
+    </ol>
+    <p>实验（可选）</p>
+    <ol>
+      <li>类似 Lab 5，完成 Day 1 的实验手册阅读和 linear_classifiers 目录下的1个实验。任务是亚马逊评论文本的情感分类，包括三个模型</li>
+      <ol>
+        <li>Naive Bayes</li>
+        <li>Perceptron</li>
+        <li>最大熵模型，其中又包括 L-BFGS、SGD 两种优化方法</li>
+      </ol>
+      <li>注意</li>
+      <ol>
+        <li>将代码和模型相印证，是学习机器学习和深度学习的最佳方法</li>
+        <li>结合上课内容，搞懂模型是怎么代码实现的，直到自己能写出来，才真正理解和掌握了这些算法，并具备了机器学习的研究和开发能力</li>
+        <li>这套代码就是一套帮助你掌握这些算法的最佳工具</li>
+        <li>这些代码非常清晰，易懂。某种程度上，比看公式推导，更容易懂</li>
+        <li>目标是自己能从0开始，把算法写出来，并把实验完成</li>
+        <li>这是真正值得学习的</li>
+      </ol>
+      <li>材料</li>
+      <ol>
+        <li>实验手册：<a href="http://lxmls.it.pt/2021/LxMLS_guide_2021.pdf">PDF</a></li>
+        <li>实验代码：<a href="https://github.com/LxMLS/lxmls-toolkit">Github</a></li>
+      </ol>
+    </ol>
+    <ol>
+
+    </ol>
+    <ol></ol>
+    <ol></ol>
+    </ol>
+
+    <h3>六、大数据文本处理实用技术</h3>
+    <p>
+      本节介绍大数据文本处理实用技术，包括文本处理流程，n-gram，TF-IDF，LDA的基本代码实验和范例代码。
+    </p>
+    <p>文本分析入门</p>
+    <ol>参考材料
+        <li>Rayid Ghani，芝加哥大学，Text Analytics 101，<a href="text/text_analytics_rayid.pdf">PDF</a>
+        <li>实验：卡耐基梅隆大学，社会公益数据科学实验室，社会公益数据科学搭便车指南，第二课，文本分析部分，<a href="https://github.com/dssg/hitchhikers-guide/tree/master/sources/curriculum/2_data_exploration_and_analysis/text-analysis">Github代码</a>，文本特征提取，主题模型 </li>
+    </ol>
+    <li></li>
+    </li>
+    </ol>
 
     <!-- <h2 id="致谢">致谢</h2>
     <ul>
